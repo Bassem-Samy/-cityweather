@@ -1,0 +1,31 @@
+[versions]
+compose-ui-version = "1.3.1"
+androidx-core-version = "1.9.0"
+androidx-lifecycle-version = "2.3.1"
+activity-compose-version = "1.3.1"
+koin = "3.3.1"
+koin-compose = "3.3.0"
+gradle-ktlint = "11.0.0"
+play-services-location = "20.0.0"
+locus-android = "4.1.0"
+
+[libraries]
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core-version" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle-version" }
+activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose-version" }
+compose-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose-ui-version" }
+compose-material = { module = "androidx.compose.material:material", version.ref = "compose-ui-version" }
+compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose-ui-version" }
+compose-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose-ui-version" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-compose" }
+gms-play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "play-services-location" }
+locus-android = { module = "com.github.BirjuVachhani:locus-android", version.ref = "locus-android" }
+
+[bundles]
+composeUi = ["compose-material", "compose-tooling-preview", "activity-compose"]
+composeDebug = ["compose-tooling", "compose-test-manifest"]
+androidLocation = ["gms-play-services-location", "locus-android"]
+
+[plugins]
+gradle-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "gradle-ktlint" }

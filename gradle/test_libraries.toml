@@ -1,0 +1,14 @@
+[versions]
+junit = "4.13.2"
+androidx-test-ext-junit = "1.1.4"
+androidx-test-espresso-core = "3.5.0"
+compose-ui-version = "1.3.1"
+
+[libraries]
+junit = { module = "junit:junit", version.ref = "junit" }
+androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-ext-junit" }
+androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso-core" }
+androidx-compose-ui-test-junit = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose-ui-version" }
+
+[bundles]
+androidUiTesting = ["androidx-test-ext-junit", "androidx-test-espresso-core", "androidx-compose-ui-test-junit"]
