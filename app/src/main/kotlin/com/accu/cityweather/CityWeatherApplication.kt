@@ -11,7 +11,12 @@ class CityWeatherApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@CityWeatherApplication)
-            modules(listOf(mainModule))
+            modules(
+                listOf(
+                    mainModule,
+                    networkModule
+                )
+            )
         }
     }
 }

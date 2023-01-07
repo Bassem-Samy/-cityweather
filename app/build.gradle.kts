@@ -1,8 +1,10 @@
+@Suppress("DSL_SCOPE_VIOLATION")
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    @Suppress("DSL_SCOPE_VIOLATION")
     alias(libraries.plugins.gradle.ktlint)
+    alias(libraries.plugins.jetbrains.kotlin.serialization)
 }
 
 android {
@@ -21,7 +23,8 @@ android {
             useSupportLibrary = true
         }
     }
-
+    buildTypes.forEach {
+    }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -30,6 +33,13 @@ android {
                     "proguard-android-optimize.txt"
                 ),
                 "proguard-rules.pro"
+            )
+        }
+        this.forEach {
+            it.buildConfigField(
+                "String",
+                "WEATHER_API_URL",
+                "http://api.openweathermap.org/data/2.5/"
             )
         }
     }
@@ -65,7 +75,8 @@ dependencies {
     implementation(libraries.koin.android)
     implementation(libraries.koin.androidx.compose)
     implementation(libraries.bundles.androidLocation)
-
+    implementation(libraries.kotlinx.serialization)
+    implementation(libraries.bundles.retrofit)
     testImplementation(testLibraries.junit)
     androidTestImplementation(testLibraries.androidx.test.ext.junit)
     androidTestImplementation(testLibraries.bundles.androidUiTesting)
