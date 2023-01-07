@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
+import com.accu.cityweather.forecast.repository.ForecastRepository
 import com.accu.cityweather.location.CityFromLocationUseCase
 import com.accu.cityweather.location.LocationProvider
 import com.accu.cityweather.ui.theme.CityWeatherTheme
@@ -19,7 +20,7 @@ import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
     private val cityFromLocationUseCase: CityFromLocationUseCase by inject()
-
+    private val forecastRepository: ForecastRepository by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -49,6 +50,12 @@ class MainActivity : ComponentActivity() {
                         longitude = result.location.longitude
                     )
                     Log.d("City", city ?: "NoCity")
+                    city?.let {
+
+                        val result = forecastRepository.getDaysForecast(city = it)
+                        Log.d("Result", result.toString())
+                    }
+
                 }
             }
         }

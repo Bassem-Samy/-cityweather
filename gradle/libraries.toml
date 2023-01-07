@@ -11,6 +11,7 @@ locus-android = "4.1.0"
 retrofit = "2.9.0"
 retrofit2-kotlinx-serialization-converter = "0.8.0"
 kotlinx-serialization = "1.4.1"
+okhttp-logging-interceptor = "4.10.0"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core-version" }
@@ -26,12 +27,13 @@ gms-play-services-location = { module = "com.google.android.gms:play-services-lo
 locus-android = { module = "com.github.BirjuVachhani:locus-android", version.ref = "locus-android" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2-kotlinx-serialization-converter" }
+okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp-logging-interceptor" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 [bundles]
 composeUi = ["compose-material", "compose-tooling-preview", "activity-compose"]
 composeDebug = ["compose-tooling", "compose-test-manifest"]
 androidLocation = ["gms-play-services-location", "locus-android"]
-retrofit = ["retrofit", "retrofit2-kotlinx-serialization-converter"]
+retrofit = ["retrofit", "retrofit2-kotlinx-serialization-converter", "okhttp-logging-interceptor"]
 
 [plugins]
 gradle-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "11.0.0" }

@@ -1,3 +1,7 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.jetbrains.kotlin.gradle.utils.loadPropertyFromResources
+import java.util.Properties
+
 @Suppress("DSL_SCOPE_VIOLATION")
 
 plugins {
@@ -40,6 +44,11 @@ android {
                 "String",
                 "WEATHER_API_URL",
                 "\"https://api.openweathermap.org/\""
+            )
+            it.buildConfigField(
+                "String",
+                "WEATHER_API_APP_ID",
+                gradleLocalProperties(rootDir).getProperty("weather.appid")
             )
         }
     }

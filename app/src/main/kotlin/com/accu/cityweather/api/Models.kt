@@ -23,7 +23,7 @@ data class ApiDailyForecast(
     val deg: Double?,
     val clouds: Double,
     val pop: Double,
-    val rain: Double?
+    val rain: Double? = null
 )
 
 @Serializable
@@ -51,10 +51,10 @@ data class ApiCurrentForecast(
     val weather: List<ApiWeather>,
     val clouds: ApiClouds,
     val wind: ApiWind,
-    val visibility: Long?,
+    val visibility: Long? = null,
     val pop: Double?,
     val sys: ApiSys,
-    val rain: ApiRain?,
+    val rain: ApiRain? = null,
 )
 
 @Serializable

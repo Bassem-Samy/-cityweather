@@ -21,9 +21,9 @@ class ForeCastRepositoryImpl(
 
     private fun ApiDailyForecast.toDayForecast(degreeToCardinalConverter: DegreeToCardinalConverter) =
         DayForecast(
-            day = Date(dt),
-            sunrise = Date(sunrise),
-            sunset = Date(sunset),
+            day = Date(dt.toMilliSeconds()),
+            sunrise = Date(sunrise.toMilliSeconds()),
+            sunset = Date(sunset.toMilliSeconds()),
             maxTemperature = temp.max.toInt(),
             minTemperature = temp.min.toInt(),
             temperature = with(temp) {
@@ -49,4 +49,6 @@ class ForeCastRepositoryImpl(
             ) else null,
             rain = Rain(probability = pop.toInt(), size = rain ?: 0.0)
         )
+
+    private fun Long.toMilliSeconds() = this * 1000L
 }
