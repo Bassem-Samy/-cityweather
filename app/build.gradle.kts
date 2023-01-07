@@ -39,7 +39,7 @@ android {
             it.buildConfigField(
                 "String",
                 "WEATHER_API_URL",
-                "http://api.openweathermap.org/data/2.5/"
+                "http://api.openweathermap.org/"
             )
         }
     }

@@ -1,5 +1,10 @@
 package com.accu.cityweather
 
+import com.accu.cityweather.api.WeatherApi
+import com.accu.cityweather.forecast.repository.DegreeToCardinalConverter
+import com.accu.cityweather.forecast.repository.DegreeToCardinalConverterImpl
+import com.accu.cityweather.forecast.repository.ForeCastRepositoryImpl
+import com.accu.cityweather.forecast.repository.ForecastRepository
 import com.accu.cityweather.location.CityFromLocationProvider
 import com.accu.cityweather.location.CityFromLocationUseCase
 import com.accu.cityweather.location.GeoCoderCityFromLocationProvider
@@ -10,6 +15,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import retrofit2.create
 
 val mainModule = module {
     single<LocationProvider> {
@@ -21,15 +27,27 @@ val mainModule = module {
     factory {
         CityFromLocationUseCase(cityFromLocationProvider = get())
     }
+    single<DegreeToCardinalConverter> {
+        DegreeToCardinalConverterImpl()
+    }
+
+    factory<ForecastRepository> {
+        ForeCastRepositoryImpl(
+            weatherApi = get(),
+            degreeToCardinalConverter = get()
+        )
+    }
 }
 
 @OptIn(ExperimentalSerializationApi::class)
 val networkModule = module {
     val contentType = MediaType.get("application/json")
     single<Retrofit> {
-        Retrofit.Builder()
-            .baseUrl(BuildConfig.WEATHER_API_URL)
-            .addConverterFactory(Json.asConverterFactory(contentType))
-            .build()
+        Retrofit.Builder().baseUrl(BuildConfig.WEATHER_API_URL)
+            .addConverterFactory(Json.asConverterFactory(contentType)).build()
+    }
+
+    single<WeatherApi> {
+        get<Retrofit>().create(WeatherApi::class.java)
     }
 }
