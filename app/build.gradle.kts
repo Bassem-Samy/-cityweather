@@ -51,6 +51,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    sourceSets {
+        val kotlinAdditionalSourceSets = project.file("src/main/kotlin")
+        findByName("main")?.java?.srcDirs(kotlinAdditionalSourceSets)
+    }
 }
 
 dependencies {

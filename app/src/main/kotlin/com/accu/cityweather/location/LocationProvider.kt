@@ -1,6 +1,5 @@
 package com.accu.cityweather.location
 
-import android.app.Activity
 import android.content.Context
 import android.location.Location
 import com.accu.cityweather.location.LocationProvider.LocationResult.FatalError
@@ -14,7 +13,6 @@ import com.birjuvachhani.locus.isPermanentlyDenied
 import com.birjuvachhani.locus.isSettingsDenied
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 interface LocationProvider {
     suspend fun getCurrentLocation(context: Context): LocationResult {
@@ -32,8 +30,11 @@ interface LocationProvider {
                     continuation.resume(errorResult)
                 }
             }
-            continuation.invokeOnCancellation { Locus.stopLocationUpdates() }
+            continuation.invokeOnCancellation {
+                Locus.stopLocationUpdates()
+            }
         }
+        // before
     }
 
     sealed class LocationResult {
