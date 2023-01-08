@@ -1,7 +1,6 @@
 package com.accu.cityweather.forecast.repository
 
 import java.util.Date
-import kotlin.math.floor
 
 interface ForecastRepository {
     suspend fun getDaysForecast(
@@ -34,5 +33,3 @@ data class DayTemperature(
 
 data class Rain(val probability: Int, val size: Double)
 data class Wind(val speed: Double, val direction: String)
-
-

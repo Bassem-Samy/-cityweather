@@ -1,6 +1,4 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-import org.jetbrains.kotlin.gradle.utils.loadPropertyFromResources
-import java.util.Properties
 
 @Suppress("DSL_SCOPE_VIOLATION")
 

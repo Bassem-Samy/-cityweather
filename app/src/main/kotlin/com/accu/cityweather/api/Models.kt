@@ -64,7 +64,6 @@ data class ApiWeather(
     val icon: String?
 )
 
-
 @Serializable
 data class ApiMainInfo(
     val temp: Double?,
@@ -89,4 +88,3 @@ data class ApiRain(@SerialName("3h") val h: Double?)
 
 @Serializable
 data class ApiSys(val pod: String?)
-

@@ -55,7 +55,6 @@ class MainActivity : ComponentActivity() {
                         val result = forecastRepository.getDaysForecast(city = it)
                         Log.d("Result", result.toString())
                     }
-
                 }
             }
         }

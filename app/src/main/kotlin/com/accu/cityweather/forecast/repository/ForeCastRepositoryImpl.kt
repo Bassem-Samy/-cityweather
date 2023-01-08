@@ -9,7 +9,9 @@ class ForeCastRepositoryImpl(
     private val degreeToCardinalConverter: DegreeToCardinalConverter
 ) : ForecastRepository {
     override suspend fun getDaysForecast(
-        city: String, units: String, daysCount: Int
+        city: String,
+        units: String,
+        daysCount: Int
     ): List<DayForecast> {
         val response = weatherApi.dailyForecast(query = city, units = units, count = daysCount)
         return if (response.list.isNullOrEmpty()) {
