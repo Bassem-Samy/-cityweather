@@ -30,8 +30,9 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2-kotlinx-serialization-converter" }
 okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp-logging-interceptor" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
 [bundles]
-composeUi = ["compose-material", "compose-tooling-preview", "activity-compose", "coil-compose"]
+composeUi = ["compose-material","compose-tooling-preview", "activity-compose", "coil-compose"]
 composeDebug = ["compose-tooling", "compose-test-manifest"]
 androidLocation = ["gms-play-services-location", "locus-android"]
 retrofit = ["retrofit", "retrofit2-kotlinx-serialization-converter", "okhttp-logging-interceptor"]
