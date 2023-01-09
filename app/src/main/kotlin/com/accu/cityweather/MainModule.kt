@@ -1,6 +1,8 @@
 package com.accu.cityweather
 
 import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel
+import com.accu.cityweather.forecast.daily.ui.DayDateFormatter
+import com.accu.cityweather.forecast.daily.ui.DayDateFormatterImpl
 import com.accu.cityweather.forecast.daily.usecase.GetDailyForecastUseCase
 import com.accu.cityweather.forecast.repository.DegreeToCardinalConverter
 import com.accu.cityweather.forecast.repository.DegreeToCardinalConverterImpl
@@ -27,7 +29,9 @@ val mainModule = module {
 
     factory<ForecastRepository> {
         ForeCastRepositoryImpl(
-            weatherApi = get(), degreeToCardinalConverter = get()
+            weatherApi = get(),
+            degreeToCardinalConverter = get(),
+            dayDateFormatter = get()
         )
     }
 
@@ -40,6 +44,10 @@ val mainModule = module {
             cityFromLocationUseCase = get(),
             forecastRepository = get()
         )
+    }
+
+    single<DayDateFormatter> {
+        DayDateFormatterImpl()
     }
 
     viewModel {

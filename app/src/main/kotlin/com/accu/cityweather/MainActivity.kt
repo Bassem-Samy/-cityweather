@@ -8,9 +8,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.accu.cityweather.forecast.daily.ui.DailyForecastUi
 import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel
+import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel.ViewState.Loading
 import com.accu.cityweather.ui.theme.CityWeatherTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -25,7 +28,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    val state = viewModel.viewState.collectAsState(initial = Loading)
+                    DailyForecastUi(
+                        Modifier.fillMaxSize(),
+                        state.value,
+                        onDayItemClicked = {},
+                        onDismissDetailClicked = {}
+                    )
                 }
             }
         }

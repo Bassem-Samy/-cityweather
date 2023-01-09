@@ -1,12 +1,15 @@
 package com.accu.cityweather.forecast.repository
 
 import com.accu.cityweather.api.ApiDailyForecast
+import com.accu.cityweather.api.ApiWeather
 import com.accu.cityweather.api.WeatherApi
+import com.accu.cityweather.forecast.daily.ui.DayDateFormatter
 import java.util.Date
 
 class ForeCastRepositoryImpl(
     private val weatherApi: WeatherApi,
-    private val degreeToCardinalConverter: DegreeToCardinalConverter
+    private val degreeToCardinalConverter: DegreeToCardinalConverter,
+    private val dayDateFormatter: DayDateFormatter,
 ) : ForecastRepository {
     override suspend fun getDaysForecast(
         city: String,
@@ -14,7 +17,7 @@ class ForeCastRepositoryImpl(
         daysCount: Int
     ): List<DayForecast> {
         val response = weatherApi.dailyForecast(query = city, units = units, count = daysCount)
-        return if (response.list.isNullOrEmpty()) {
+        return if (response.list.isEmpty()) {
             emptyList()
         } else {
             response.list.map { it.toDayForecast(degreeToCardinalConverter) }
@@ -23,9 +26,10 @@ class ForeCastRepositoryImpl(
 
     private fun ApiDailyForecast.toDayForecast(degreeToCardinalConverter: DegreeToCardinalConverter) =
         DayForecast(
-            day = Date(dt.toMilliSeconds()),
-            sunrise = Date(sunrise.toMilliSeconds()),
-            sunset = Date(sunset.toMilliSeconds()),
+            day = dayDateFormatter.format(dt),
+            description = weather.getDescription(),
+            sunrise = Date(sunrise),
+            sunset = Date(sunset),
             maxTemperature = temp.max.toInt(),
             minTemperature = temp.min.toInt(),
             temperature = with(temp) {
@@ -52,5 +56,8 @@ class ForeCastRepositoryImpl(
             rain = Rain(probability = pop.toInt(), size = rain ?: 0.0)
         )
 
-    private fun Long.toMilliSeconds() = this * 1000L
+    private fun List<ApiWeather>.getDescription(): DayDescription {
+        val first = firstOrNull()
+        return DayDescription(main = first?.main ?: "-", description = first?.description ?: "-")
+    }
 }

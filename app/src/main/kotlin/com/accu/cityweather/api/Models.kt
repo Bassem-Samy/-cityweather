@@ -59,9 +59,9 @@ data class ApiCurrentForecast(
 
 @Serializable
 data class ApiWeather(
-    val main: String?,
-    val description: String?,
-    val icon: String?
+    val main: String,
+    val description: String,
+    val icon: String
 )
 
 @Serializable

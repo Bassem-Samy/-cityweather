@@ -11,7 +11,8 @@ interface ForecastRepository {
 }
 
 data class DayForecast(
-    val day: Date,
+    val day: String,
+    val description: DayDescription?,
     val sunrise: Date,
     val sunset: Date,
     val maxTemperature: Int,
@@ -24,6 +25,7 @@ data class DayForecast(
     val rain: Rain,
 )
 
+data class DayDescription(val main: String, val description: String)
 data class DayTemperature(
     val day: Int,
     val night: Int,
