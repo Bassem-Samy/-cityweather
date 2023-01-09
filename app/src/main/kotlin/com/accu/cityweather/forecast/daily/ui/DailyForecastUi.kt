@@ -102,6 +102,12 @@ fun DayDetailForecast(dayForecast: DayForecast) {
         Column(
             modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 16.dp),
         ) {
+            Text(
+                modifier = Modifier
+                    .align(CenterHorizontally)
+                    .padding(top = 16.dp),
+                text = dayForecast.day, style = MaterialTheme.typography.h6
+            )
             DetailHeader(modifier = Modifier.align(CenterHorizontally), dayForecast)
             DetailInfo(dayForecast)
             Spacer(modifier = Modifier.height(8.dp))
@@ -121,7 +127,7 @@ fun DayDetailForecast(dayForecast: DayForecast) {
 fun DetailHeader(modifier: Modifier, dayForecast: DayForecast) {
     with(dayForecast) {
         Row(
-            modifier = modifier.padding(16.dp),
+            modifier = modifier.padding(vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
@@ -135,11 +141,22 @@ fun DetailHeader(modifier: Modifier, dayForecast: DayForecast) {
                     .weight(1f),
                 horizontalAlignment = Alignment.Start
             ) {
-                description?.let {
-                    Text(
-                        text = "${it.main}, ${it.description}",
-                        fontWeight = FontWeight.Bold
-                    )
+                Row {
+                    description?.let {
+                        Text(
+                            text = "${it.main}, ${it.description}",
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                    if (condition.size > 0) {
+                        Text(
+                            modifier = modifier.padding(start = 4.dp),
+                            text = stringResource(
+                                id = R.string.day_detail_condition_size,
+                                condition.size
+                            )
+                        )
+                    }
                 }
                 Text(
                     text = stringResource(
@@ -160,8 +177,7 @@ fun DetailInfo(dayForecast: DayForecast) {
             Text(
                 text = stringResource(
                     id = R.string.day_details_condition,
-                    rain.size,
-                    rain.probability
+                    condition.probability
                 )
             )
             Spacer(modifier = Modifier.width(16.dp))

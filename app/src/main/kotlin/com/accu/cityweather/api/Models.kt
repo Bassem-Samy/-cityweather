@@ -23,7 +23,8 @@ data class ApiDailyForecast(
     val deg: Double?,
     val clouds: Double,
     val pop: Double,
-    val rain: Double? = null
+    val rain: Double? = null,
+    val snow: Double? = null
 )
 
 @Serializable

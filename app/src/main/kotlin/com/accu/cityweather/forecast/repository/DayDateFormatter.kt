@@ -11,7 +11,7 @@ interface DayDateFormatter {
 
 class DayDateFormatterImpl : DayDateFormatter {
     private val dayPattern = "E, MMM dd"
-    private val timePattern = "hh:mm"
+    private val timePattern = "HH:mm"
     private val dayDateFormatter = SimpleDateFormat(dayPattern, Locale.US)
     private val timeDateFormatter = SimpleDateFormat(timePattern, Locale.US)
     override fun format(date: Long): String =

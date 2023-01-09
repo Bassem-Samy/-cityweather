@@ -20,7 +20,7 @@ data class DayForecast(
     val pressure: Int,
     val humidity: Int,
     val wind: Wind?,
-    val rain: Rain,
+    val condition: Condition,
     val iconUrl: String,
 )
 
@@ -32,5 +32,5 @@ data class DayTemperature(
     val morning: Int
 )
 
-data class Rain(val probability: Int, val size: Double)
+data class Condition(val probability: Int, val size: Double)
 data class Wind(val speed: Double, val direction: String)

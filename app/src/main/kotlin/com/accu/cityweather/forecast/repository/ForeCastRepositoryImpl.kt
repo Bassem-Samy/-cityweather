@@ -53,7 +53,7 @@ class ForeCastRepositoryImpl(
             wind = if (speed != null && deg != null) Wind(
                 speed = speed, direction = degreeToCardinalConverter.convert(deg)
             ) else null,
-            rain = Rain(probability = pop.toPercentage(), size = rain ?: 0.0),
+            condition = Condition(probability = pop.toPercentage(), size = rain ?: snow ?: 0.0),
             iconUrl = iconUrlResolver.resolve(weather.getIconUrl())
         )
 
