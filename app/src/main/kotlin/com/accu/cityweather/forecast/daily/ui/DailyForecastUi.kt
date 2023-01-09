@@ -118,7 +118,7 @@ fun DayItem(
 
 @Composable
 fun LoadingUi(modifier: Modifier) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         CircularProgressIndicator(modifier.padding(16.dp))
         Text(text = stringResource(id = string.loading))
     }
