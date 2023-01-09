@@ -3,7 +3,6 @@ package com.accu.cityweather.forecast.daily.ui
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,6 +20,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -99,18 +99,29 @@ fun DaysListUi(
 @Composable
 fun DayDetailForecast(dayForecast: DayForecast) {
     Card(modifier = Modifier.padding(vertical = 16.dp)) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            DetailHeader(dayForecast)
+        Column(
+            modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 16.dp),
+        ) {
+            DetailHeader(modifier = Modifier.align(CenterHorizontally), dayForecast)
             DetailInfo(dayForecast)
+            Spacer(modifier = Modifier.height(8.dp))
+            Divider(
+                Modifier
+                    .size(width = 64.dp, height = 1.dp)
+                    .align(CenterHorizontally),
+                color = MaterialTheme.colors.primary
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            DetailTemperatures(dayForecast)
         }
     }
 }
 
 @Composable
-fun DetailHeader(dayForecast: DayForecast) {
+fun DetailHeader(modifier: Modifier, dayForecast: DayForecast) {
     with(dayForecast) {
         Row(
-            modifier = Modifier.padding(16.dp),
+            modifier = modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
@@ -145,37 +156,112 @@ fun DetailHeader(dayForecast: DayForecast) {
 @Composable
 fun DetailInfo(dayForecast: DayForecast) {
     with(dayForecast) {
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Divider(
-                modifier = Modifier
-                    .width(1.dp)
-                    .height(IntrinsicSize.Max),
-                color = MaterialTheme.colors.primary
+        Row {
+            Text(
+                text = stringResource(
+                    id = R.string.day_details_condition,
+                    rain.size,
+                    rain.probability
+                )
             )
-            Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 16.dp)
-            ) {
+            Spacer(modifier = Modifier.width(16.dp))
+            wind?.let {
                 Text(
+                    modifier = Modifier.padding(start = 16.dp),
                     text = stringResource(
-                        id = R.string.day_details_condition,
-                        rain.size,
-                        rain.probability
+                        id = R.string.day_details_wind,
+                        it.speed,
+                        it.direction
                     )
                 )
-                wind?.let {
-                    Text(
-                        modifier = Modifier.padding(start = 16.dp),
-                        text = stringResource(
-                            id = R.string.day_details_wind,
-                            it.speed,
-                            it.direction
-                        )
-                    )
-                }
             }
         }
+        Row {
+            Text(
+                text = stringResource(
+                    id = R.string.day_details_humidity,
+                    humidity
+                )
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            Text(
+                text = stringResource(
+                    id = R.string.day_details_pressure,
+                    pressure
+                )
+            )
+        }
+        Row {
+            Text(
+                text = stringResource(
+                    id = R.string.day_details_sunrise,
+                    sunrise
+                )
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            Text(
+                text = stringResource(
+                    id = R.string.day_details_sunset,
+                    sunset
+                )
+            )
+        }
+    }
+}
+
+@Composable
+fun DetailTemperatures(dayForecast: DayForecast) {
+    with(dayForecast) {
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Column(Modifier.weight(1f)) {
+                Text(text = "")
+                Text(text = stringResource(id = R.string.morning))
+                Text(text = stringResource(id = R.string.afternoon))
+                Text(text = stringResource(id = R.string.evening))
+                Text(text = stringResource(id = R.string.night))
+            }
+            with(temperature) {
+                DayTimeTemperature(
+                    modifier = Modifier.weight(1f),
+                    title = stringResource(id = R.string.temperature),
+                    morning = morning,
+                    afternoon = day,
+                    evening = eve,
+                    night = night
+                )
+            }
+            with(feelsLikeTemperature) {
+                DayTimeTemperature(
+                    modifier = Modifier.weight(1f),
+                    title = stringResource(id = R.string.day_details_real_feel),
+                    morning = morning,
+                    afternoon = day,
+                    evening = eve,
+                    night = night
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun DayTimeTemperature(
+    modifier: Modifier,
+    title: String,
+    morning: Int,
+    afternoon: Int,
+    evening: Int,
+    night: Int
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = CenterHorizontally
+    ) {
+        Text(text = title)
+        Text(text = stringResource(id = R.string.temperature_with_degree, morning))
+        Text(text = stringResource(id = R.string.temperature_with_degree, afternoon))
+        Text(text = stringResource(id = R.string.temperature_with_degree, evening))
+        Text(text = stringResource(id = R.string.temperature_with_degree, night))
     }
 }
 
@@ -225,7 +311,7 @@ fun DayItem(
 
 @Composable
 fun LoadingUi(modifier: Modifier) {
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(modifier = modifier, horizontalAlignment = CenterHorizontally) {
         CircularProgressIndicator(modifier.padding(16.dp))
         Text(text = stringResource(id = R.string.loading))
     }

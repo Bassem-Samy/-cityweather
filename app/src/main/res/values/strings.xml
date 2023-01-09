@@ -5,4 +5,18 @@
     <string name="day_detail_min_max_temp">High: %1s°C, Low: %2s°C.</string>
     <string name="day_details_condition">%1$.2f mm (%2$d)\%%</string>
     <string name="day_details_wind">wind: %1$.00fm/s %2$s</string>
+    <string name="day_details_pressure">Pressure: %shPa</string>
+    <string name="day_details_humidity">Humidity: %d%%</string>
+    <string name="day_details_sunrise">Sunrise: %s</string>
+    <string name="day_details_sunset">Sunset: %s</string>
+    <string name="day_details_day_time">Day time:</string>
+    <string name="day_details_temperature">Temperature</string>
+    <string name="day_details_real_feel">Real feel</string>
+    <string name="temperature_with_degree">%d°C</string>
+    <string name="morning">Morning</string>
+    <string name="afternoon">Afternoon</string>
+    <string name="evening">Evening</string>
+    <string name="night">Night</string>
+    <string name="temp_with_degree">%d °C</string>
+    <string name="temperature">Temperature</string>
 </resources>

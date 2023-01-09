@@ -3,7 +3,6 @@ package com.accu.cityweather.forecast.repository
 import com.accu.cityweather.api.ApiDailyForecast
 import com.accu.cityweather.api.ApiWeather
 import com.accu.cityweather.api.WeatherApi
-import java.util.Date
 import kotlin.math.roundToInt
 
 class ForeCastRepositoryImpl(
@@ -29,8 +28,8 @@ class ForeCastRepositoryImpl(
         DayForecast(
             day = dayDateFormatter.format(dt),
             description = weather.getDescription(),
-            sunrise = Date(sunrise),
-            sunset = Date(sunset),
+            sunrise = dayDateFormatter.formatTime(sunrise),
+            sunset = dayDateFormatter.formatTime(sunset),
             maxTemperature = temp.max.toInt(),
             minTemperature = temp.min.toInt(),
             temperature = with(temp) {

@@ -6,13 +6,19 @@ import java.util.Locale
 
 interface DayDateFormatter {
     fun format(date: Long): String
+    fun formatTime(date: Long): String
 }
 
 class DayDateFormatterImpl : DayDateFormatter {
-    private val pattern = "E, MMM dd"
-    private val simpleDateFormatter = SimpleDateFormat(pattern, Locale.US)
+    private val dayPattern = "E, MMM dd"
+    private val timePattern = "hh:mm"
+    private val dayDateFormatter = SimpleDateFormat(dayPattern, Locale.US)
+    private val timeDateFormatter = SimpleDateFormat(timePattern, Locale.US)
     override fun format(date: Long): String =
-        simpleDateFormatter.format(Date(date.toMilliSeconds()))
+        dayDateFormatter.format(Date(date.toMilliSeconds()))
+
+    override fun formatTime(date: Long): String =
+        timeDateFormatter.format(Date(date.toMilliSeconds()))
 
     private fun Long.toMilliSeconds() = this * 1000L
 }

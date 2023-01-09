@@ -1,7 +1,5 @@
 package com.accu.cityweather.forecast.repository
 
-import java.util.Date
-
 interface ForecastRepository {
     suspend fun getDaysForecast(
         city: String,
@@ -13,8 +11,8 @@ interface ForecastRepository {
 data class DayForecast(
     val day: String,
     val description: DayDescription?,
-    val sunrise: Date,
-    val sunset: Date,
+    val sunrise: String,
+    val sunset: String,
     val maxTemperature: Int,
     val minTemperature: Int,
     val temperature: DayTemperature,
