@@ -9,7 +9,7 @@ interface DayDateFormatter {
 }
 
 class DayDateFormatterImpl : DayDateFormatter {
-    private val pattern = "E, MMM yy"
+    private val pattern = "E, MMM dd"
     private val simpleDateFormatter = SimpleDateFormat(pattern, Locale.US)
     override fun format(date: Long): String =
         simpleDateFormatter.format(Date(date.toMilliSeconds()))

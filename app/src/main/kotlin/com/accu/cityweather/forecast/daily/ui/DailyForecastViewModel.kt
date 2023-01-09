@@ -45,14 +45,31 @@ class DailyForecastViewModel(
     }
 
     private suspend fun handleLocation(location: Location) {
-        val dailyList = getDailyForecastUseCase(
+        val cityDailyForecast = getDailyForecastUseCase(
             longitude = location.longitude,
             latitude = location.latitude
         )
-        if (dailyList.isEmpty()) {
+        if (cityDailyForecast.items.isEmpty()) {
             _viewState.emit(NoResult)
         } else {
-            _viewState.emit(DailyForecast(dailyList))
+            _viewState.emit(
+                DailyForecast(
+                    city = cityDailyForecast.city ?: "",
+                    items = cityDailyForecast.items
+                )
+            )
+        }
+    }
+
+    fun showDetailDayForecast(dayForecast: DayForecast) {
+        (_viewState.value as? DailyForecast)?.let {
+            _viewState.tryEmit(it.copy(detailItem = dayForecast))
+        }
+    }
+
+    fun dismissDetailForecast() {
+        (_viewState.value as? DailyForecast)?.let {
+            _viewState.tryEmit(it.copy(detailItem = null))
         }
     }
 
@@ -61,6 +78,10 @@ class DailyForecastViewModel(
         object LocationUnAvailable : ViewState()
         object Loading : ViewState()
         object NoResult : ViewState()
-        data class DailyForecast(val items: List<DayForecast>) : ViewState()
+        data class DailyForecast(
+            val city: String,
+            val items: List<DayForecast>,
+            val detailItem: DayForecast? = null,
+        ) : ViewState()
     }
 }

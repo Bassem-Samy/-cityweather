@@ -32,8 +32,12 @@ class MainActivity : ComponentActivity() {
                     DailyForecastUi(
                         Modifier.fillMaxSize(),
                         state.value,
-                        onDayItemClicked = {},
-                        onDismissDetailClicked = {}
+                        onDayItemClicked = {
+                            viewModel.showDetailDayForecast(it)
+                        },
+                        onDismissDetailClicked = {
+                            viewModel.dismissDetailForecast()
+                        }
                     )
                 }
             }
