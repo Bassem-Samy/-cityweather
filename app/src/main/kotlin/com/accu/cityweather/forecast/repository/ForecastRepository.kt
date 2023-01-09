@@ -23,6 +23,7 @@ data class DayForecast(
     val humidity: Int,
     val wind: Wind?,
     val rain: Rain,
+    val iconUrl: String,
 )
 
 data class DayDescription(val main: String, val description: String)

@@ -33,5 +33,9 @@ class GeoCoderCityFromLocationProvider(private val application: Application) :
         }
     }
 
-    private fun List<Address>?.getFirstCity(): String? = this?.firstOrNull()?.locality
+    private fun List<Address>?.getFirstCity(): String? {
+        return this?.firstOrNull()?.let {
+            it.locality ?: it.adminArea
+        }
+    }
 }

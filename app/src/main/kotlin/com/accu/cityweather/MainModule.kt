@@ -1,13 +1,15 @@
 package com.accu.cityweather
 
 import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel
-import com.accu.cityweather.forecast.daily.ui.DayDateFormatter
-import com.accu.cityweather.forecast.daily.ui.DayDateFormatterImpl
 import com.accu.cityweather.forecast.daily.usecase.GetDailyForecastUseCase
+import com.accu.cityweather.forecast.repository.DayDateFormatter
+import com.accu.cityweather.forecast.repository.DayDateFormatterImpl
 import com.accu.cityweather.forecast.repository.DegreeToCardinalConverter
 import com.accu.cityweather.forecast.repository.DegreeToCardinalConverterImpl
 import com.accu.cityweather.forecast.repository.ForeCastRepositoryImpl
 import com.accu.cityweather.forecast.repository.ForecastRepository
+import com.accu.cityweather.forecast.repository.IconUrlResolver
+import com.accu.cityweather.forecast.repository.IconUrlResolverImpl
 import com.accu.cityweather.location.CityFromLocationProvider
 import com.accu.cityweather.location.CityFromLocationUseCase
 import com.accu.cityweather.location.GeoCoderCityFromLocationProvider
@@ -31,7 +33,8 @@ val mainModule = module {
         ForeCastRepositoryImpl(
             weatherApi = get(),
             degreeToCardinalConverter = get(),
-            dayDateFormatter = get()
+            dayDateFormatter = get(),
+            iconUrlResolver = get()
         )
     }
 
@@ -48,6 +51,10 @@ val mainModule = module {
 
     single<DayDateFormatter> {
         DayDateFormatterImpl()
+    }
+
+    single<IconUrlResolver> {
+        IconUrlResolverImpl(BuildConfig.WEATHER_ICON_URL)
     }
 
     viewModel {

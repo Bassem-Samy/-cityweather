@@ -45,6 +45,11 @@ android {
             )
             it.buildConfigField(
                 "String",
+                "WEATHER_ICON_URL",
+                "\"https://openweathermap.org/img/wn/\""
+            )
+            it.buildConfigField(
+                "String",
                 "WEATHER_API_APP_ID",
                 gradleLocalProperties(rootDir).getProperty("weather.appid")
             )

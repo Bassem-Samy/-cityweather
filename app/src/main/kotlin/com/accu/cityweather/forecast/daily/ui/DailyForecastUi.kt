@@ -8,19 +8,19 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.accu.cityweather.R
 import com.accu.cityweather.R.string
 import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel.ViewState
@@ -30,9 +30,6 @@ import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel.ViewState.L
 import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel.ViewState.LocationUnAvailable
 import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel.ViewState.NoResult
 import com.accu.cityweather.forecast.repository.DayForecast
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 @Composable
 fun DailyForecastUi(
@@ -92,10 +89,13 @@ fun DayItem(
                 text = dayForecast.day,
                 textAlign = TextAlign.Center
             )
-            Icon(
-                painter = painterResource(id = android.R.drawable.ic_menu_day),
-                contentDescription = null
+
+            AsyncImage(
+                modifier = Modifier.size(24.dp),
+                model = dayForecast.iconUrl,
+                contentDescription = null,
             )
+
             Text(
                 text = stringResource(
                     id = R.string.day_min_max_temp,
@@ -122,17 +122,4 @@ fun LoadingUi(modifier: Modifier) {
         CircularProgressIndicator(modifier.padding(16.dp))
         Text(text = stringResource(id = string.loading))
     }
-}
-
-interface DayDateFormatter {
-    fun format(date: Long): String
-}
-
-class DayDateFormatterImpl : DayDateFormatter {
-    private val pattern = "E, MMM yy"
-    private val simpleDateFormatter = SimpleDateFormat(pattern, Locale.US)
-    override fun format(date: Long): String =
-        simpleDateFormatter.format(Date(date.toMilliSeconds()))
-
-    private fun Long.toMilliSeconds() = this * 1000L
 }

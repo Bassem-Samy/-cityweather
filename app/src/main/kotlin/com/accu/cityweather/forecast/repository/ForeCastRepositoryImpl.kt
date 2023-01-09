@@ -3,13 +3,13 @@ package com.accu.cityweather.forecast.repository
 import com.accu.cityweather.api.ApiDailyForecast
 import com.accu.cityweather.api.ApiWeather
 import com.accu.cityweather.api.WeatherApi
-import com.accu.cityweather.forecast.daily.ui.DayDateFormatter
 import java.util.Date
 
 class ForeCastRepositoryImpl(
     private val weatherApi: WeatherApi,
     private val degreeToCardinalConverter: DegreeToCardinalConverter,
     private val dayDateFormatter: DayDateFormatter,
+    private val iconUrlResolver: IconUrlResolver,
 ) : ForecastRepository {
     override suspend fun getDaysForecast(
         city: String,
@@ -53,11 +53,17 @@ class ForeCastRepositoryImpl(
             wind = if (speed != null && deg != null) Wind(
                 speed = speed, direction = degreeToCardinalConverter.convert(deg)
             ) else null,
-            rain = Rain(probability = pop.toInt(), size = rain ?: 0.0)
+            rain = Rain(probability = pop.toInt(), size = rain ?: 0.0),
+            iconUrl = iconUrlResolver.resolve(weather.getIconUrl())
         )
 
     private fun List<ApiWeather>.getDescription(): DayDescription {
         val first = firstOrNull()
         return DayDescription(main = first?.main ?: "-", description = first?.description ?: "-")
+    }
+
+    private fun List<ApiWeather>.getIconUrl(): String {
+        val first = firstOrNull()
+        return first?.icon ?: ""
     }
 }
