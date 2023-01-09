@@ -2,4 +2,7 @@
     <string name="app_name">CityWeather</string>
     <string name="loading">Loading</string>
     <string name="day_min_max_temp">"%1s / %2s °C"</string>
+    <string name="day_detail_min_max_temp">High: %1s°C, Low: %2s°C.</string>
+    <string name="day_details_condition">%1$.2f mm (%2$d)\%%</string>
+    <string name="day_details_wind">wind: %1$.00fm/s %2$s</string>
 </resources>

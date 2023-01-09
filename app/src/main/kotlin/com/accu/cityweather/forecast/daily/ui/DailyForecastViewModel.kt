@@ -2,6 +2,7 @@ package com.accu.cityweather.forecast.daily.ui
 
 import android.content.Context
 import android.location.Location
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel.ViewState.DailyForecast
@@ -27,7 +28,8 @@ class DailyForecastViewModel(
 ) : ViewModel() {
     private val _viewState = MutableStateFlow<ViewState>(Loading)
     val viewState: Flow<ViewState> = _viewState
-    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, _ ->
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        Log.e("ViewModel", throwable.message ?: "")
         _viewState.tryEmit(Error)
     }
 

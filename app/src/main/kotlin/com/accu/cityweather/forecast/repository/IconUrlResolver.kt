@@ -6,6 +6,6 @@ interface IconUrlResolver {
 
 class IconUrlResolverImpl(private val baseUrl: String) : IconUrlResolver {
     override fun resolve(icon: String): String {
-        return baseUrl.plus("$icon@2x.png")
+        return baseUrl.plus("$icon@4x.png")
     }
 }

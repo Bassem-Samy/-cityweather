@@ -4,6 +4,7 @@ import com.accu.cityweather.api.ApiDailyForecast
 import com.accu.cityweather.api.ApiWeather
 import com.accu.cityweather.api.WeatherApi
 import java.util.Date
+import kotlin.math.roundToInt
 
 class ForeCastRepositoryImpl(
     private val weatherApi: WeatherApi,
@@ -53,7 +54,7 @@ class ForeCastRepositoryImpl(
             wind = if (speed != null && deg != null) Wind(
                 speed = speed, direction = degreeToCardinalConverter.convert(deg)
             ) else null,
-            rain = Rain(probability = pop.toInt(), size = rain ?: 0.0),
+            rain = Rain(probability = pop.toPercentage(), size = rain ?: 0.0),
             iconUrl = iconUrlResolver.resolve(weather.getIconUrl())
         )
 
@@ -66,4 +67,6 @@ class ForeCastRepositoryImpl(
         val first = firstOrNull()
         return first?.icon ?: ""
     }
+
+    private fun Double.toPercentage(): Int = (this * 100).roundToInt()
 }
