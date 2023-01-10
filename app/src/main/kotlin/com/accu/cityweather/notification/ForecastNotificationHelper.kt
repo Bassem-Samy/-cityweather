@@ -51,13 +51,13 @@ class ForeCastNotificationHelperImpl : ForecastNotificationHelper {
                         description
                     )
                 )
-                    setContentText(
-                        context.getString(
-                            R.string.current_forecast_notification_content,
-                            temperature,
-                            feelsLike
-                        )
+                setContentText(
+                    context.getString(
+                        R.string.current_forecast_notification_content,
+                        temperature,
+                        feelsLike
                     )
+                )
                 if (condition.size > 0) {
                     setStyle(
                         NotificationCompat.BigTextStyle().bigText(

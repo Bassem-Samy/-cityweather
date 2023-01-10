@@ -89,8 +89,12 @@ dependencies {
     implementation(libraries.kotlinx.serialization)
     implementation(libraries.bundles.retrofit)
     implementation(libraries.androidx.work)
-    implementation(libraries.easypermissions.ktx)
+
     testImplementation(testLibraries.junit)
+    testImplementation(testLibraries.mockk)
+    testImplementation(testLibraries.coroutines.test)
+    testImplementation(testLibraries.turbine)
+    testImplementation(testLibraries.google.truth)
     androidTestImplementation(testLibraries.androidx.test.ext.junit)
     androidTestImplementation(testLibraries.bundles.androidUiTesting)
     debugImplementation(libraries.bundles.composeDebug)

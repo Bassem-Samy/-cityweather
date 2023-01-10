@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-private const val NOTIFICATION_INTERVAL = 5 * 60 * 1000L
+private const val NOTIFICATION_INTERVAL_MILLI_SECONDS = 15 * 60 * 1000L
 
 class DailyForecastViewModel(
     private val locationProvider: LocationProvider,
@@ -54,7 +54,7 @@ class DailyForecastViewModel(
 
     fun onStop(context: Context) {
         viewModelScope.launch {
-            forecastNotificationManager.schedule(context, NOTIFICATION_INTERVAL)
+            forecastNotificationManager.schedule(context, NOTIFICATION_INTERVAL_MILLI_SECONDS)
         }
     }
 
