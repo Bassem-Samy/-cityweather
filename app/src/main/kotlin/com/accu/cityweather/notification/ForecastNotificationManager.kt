@@ -1,11 +1,6 @@
 package com.accu.cityweather.notification
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Context
-import android.os.Build
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.NetworkType.CONNECTED
@@ -41,7 +36,7 @@ class WorkManagerForecastNotificationManager(private val notificationHelper: For
         val workRequest = PeriodicWorkRequestBuilder<CurrentForecastWorker>(
             repeatInterval = repeatInterval,
             repeatIntervalTimeUnit = MILLISECONDS
-        )//.setInitialDelay(repeatInterval, MILLISECONDS)
+        ) // .setInitialDelay(repeatInterval, MILLISECONDS)
             .setConstraints(constraints)
             .addTag(WORKER_TAG)
             .build()

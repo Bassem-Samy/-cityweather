@@ -46,14 +46,13 @@ class DailyForecastViewModel(
                     handleLocation(locationResult.location)
                 }
             }
-            //TODO should cancel
+            // TODO should cancel
             forecastNotificationManager.schedule(context, 5 * 60 * 1000)
         }
-
     }
 
     fun onStop() {
-        //TODO  should stop()
+        // TODO  should stop()
     }
 
     private suspend fun handleLocation(location: Location) {

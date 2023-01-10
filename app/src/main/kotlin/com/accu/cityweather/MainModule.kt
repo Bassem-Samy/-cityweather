@@ -66,7 +66,6 @@ val mainModule = module {
         IconUrlResolverImpl(BuildConfig.WEATHER_ICON_URL)
     }
 
-
     single<ForecastNotificationHelper> {
         ForeCastNotificationHelperImpl()
     }

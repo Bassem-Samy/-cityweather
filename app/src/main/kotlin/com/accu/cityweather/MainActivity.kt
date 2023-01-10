@@ -1,27 +1,27 @@
 package com.accu.cityweather
 
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationManagerCompat
 import com.accu.cityweather.forecast.daily.ui.DailyForecastUi
 import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel
+import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel.ViewState
+import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel.ViewState.DailyForecast
 import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel.ViewState.Loading
-import com.accu.cityweather.forecast.daily.usecase.GetDailyForecastUseCase
 import com.accu.cityweather.ui.theme.CityWeatherTheme
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
     private val viewModel: DailyForecastViewModel by viewModel()
-    private val x: GetDailyForecastUseCase by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -32,6 +32,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     val state = viewModel.viewState.collectAsState(initial = Loading)
+
+                    checkNotificationsPermission(state.value)
                     DailyForecastUi(
                         Modifier.fillMaxSize(),
                         state.value,
@@ -54,17 +56,20 @@ class MainActivity : ComponentActivity() {
         super.onStart()
         viewModel.onStart(this)
     }
-}
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+    override fun onStop() {
+        super.onStop()
+        viewModel.onStop()
+    }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    CityWeatherTheme {
-        Greeting("Android")
+    private fun checkNotificationsPermission(viewState: ViewState) {
+        if (VERSION.SDK_INT >= VERSION_CODES.TIRAMISU && viewState is DailyForecast) {
+            if (NotificationManagerCompat.from(this).areNotificationsEnabled().not()) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 12
+                )
+            }
+        }
     }
 }
