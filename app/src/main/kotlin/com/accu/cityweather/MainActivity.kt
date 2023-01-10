@@ -58,8 +58,8 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onStop() {
-        super.onStop()
         viewModel.onStop(this)
+        super.onStop()
     }
 
     private fun checkNotificationsPermission(viewState: ViewState) {
