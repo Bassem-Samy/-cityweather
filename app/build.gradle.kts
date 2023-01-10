@@ -71,6 +71,8 @@ android {
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/LICENSE.md"
+            excludes += "META-INF/LICENSE-notice.md"
         }
     }
     sourceSets {
@@ -97,5 +99,6 @@ dependencies {
     testImplementation(testLibraries.google.truth)
     androidTestImplementation(testLibraries.androidx.test.ext.junit)
     androidTestImplementation(testLibraries.bundles.androidUiTesting)
+    androidTestImplementation(testLibraries.mockk.android)
     debugImplementation(libraries.bundles.composeDebug)
 }

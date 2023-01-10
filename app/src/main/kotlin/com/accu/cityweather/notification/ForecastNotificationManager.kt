@@ -38,7 +38,7 @@ class WorkManagerForecastNotificationManager(private val notificationHelper: For
         val workRequest = PeriodicWorkRequestBuilder<CurrentForecastWorker>(
             repeatInterval = repeatInterval,
             repeatIntervalTimeUnit = MILLISECONDS
-        ) // .setInitialDelay(repeatInterval, MILLISECONDS)
+        ).setInitialDelay(repeatInterval, MILLISECONDS)
             .setConstraints(constraints)
             .addTag(WORKER_TAG)
             .build()
