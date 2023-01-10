@@ -32,3 +32,11 @@
 4. Maybe using NavHost for list and details views and using separate ViewModels.
 5. Extracting the mapping of API models to Domain Models to a mapper for ease of testing.
 6. Writing more tests.
+
+
+#### Preview:
+
+
+https://user-images.githubusercontent.com/2157203/211683487-0cf6d169-af49-41a4-94f5-4f695c29962b.mp4
+
+
