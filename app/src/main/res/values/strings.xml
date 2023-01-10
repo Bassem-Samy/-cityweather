@@ -20,4 +20,7 @@
     <string name="night">Night</string>
     <string name="temp_with_degree">%d °C</string>
     <string name="temperature">Temperature</string>
+    <string name="general_error_retry">An error has happened, retry?</string>
+    <string name="no_result_retry">No Results available, retry?</string>
+    <string name="location_unavailable_retry">Location unavailable, retry?</string>
 </resources>

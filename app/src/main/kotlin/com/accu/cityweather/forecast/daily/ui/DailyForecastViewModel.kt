@@ -35,6 +35,7 @@ class DailyForecastViewModel(
 
     fun onStart(context: Context) {
         viewModelScope.launch(coroutineExceptionHandler) {
+            _viewState.emit(Loading)
             when (val locationResult = locationProvider.getCurrentLocation(context)) {
                 FatalError -> _viewState.emit(Error)
                 LocationSettingsOff,

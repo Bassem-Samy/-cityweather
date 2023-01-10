@@ -37,6 +37,9 @@ class MainActivity : ComponentActivity() {
                         },
                         onDismissDetailClicked = {
                             viewModel.dismissDetailForecast()
+                        },
+                        onRetry = {
+                            viewModel.onStart(this)
                         }
                     )
                 }
