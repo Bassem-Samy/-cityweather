@@ -29,7 +29,6 @@ fun CityWeatherTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compo
 
     MaterialTheme(
         colors = colors,
-        typography = Typography,
         shapes = Shapes,
         content = content
     )
