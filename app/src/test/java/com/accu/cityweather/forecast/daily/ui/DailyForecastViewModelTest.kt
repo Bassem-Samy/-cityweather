@@ -1,9 +1,9 @@
-package com.accu.cityweather
+package com.accu.cityweather.forecast.daily.ui
 
 import android.content.Context
 import android.location.Location
 import app.cash.turbine.test
-import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel
+import com.accu.cityweather.CoroutineTestRule
 import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel.ViewState
 import com.accu.cityweather.forecast.daily.usecase.GetDailyForecastUseCase
 import com.accu.cityweather.forecast.daily.usecase.GetDailyForecastUseCase.CityDailyForecast
