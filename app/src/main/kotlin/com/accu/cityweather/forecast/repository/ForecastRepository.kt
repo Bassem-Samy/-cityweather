@@ -1,5 +1,10 @@
 package com.accu.cityweather.forecast.repository
 
+import com.accu.cityweather.forecast.repository.GeneralTemperature.COLD
+import com.accu.cityweather.forecast.repository.GeneralTemperature.FREEZING
+import com.accu.cityweather.forecast.repository.GeneralTemperature.HOT
+import com.accu.cityweather.forecast.repository.GeneralTemperature.VERY_COLD
+
 interface ForecastRepository {
     suspend fun getDaysForecast(
         city: String,
@@ -39,6 +44,21 @@ data class DayForecast(
     val condition: Condition,
     val iconUrl: String,
 )
+
+fun DayForecast.generalTemperature(): GeneralTemperature =
+    when {
+        maxTemperature > 24 -> HOT
+        maxTemperature in 11..24 -> COLD
+        maxTemperature in 1..10 -> VERY_COLD
+        else -> FREEZING
+    }
+
+enum class GeneralTemperature {
+    HOT,
+    COLD,
+    VERY_COLD,
+    FREEZING,
+}
 
 data class DayDescription(val main: String, val description: String)
 data class DayTemperature(

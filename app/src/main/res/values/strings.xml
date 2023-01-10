@@ -14,6 +14,10 @@
     <string name="day_details_temperature">Temperature</string>
     <string name="day_details_real_feel">Real feel</string>
     <string name="temperature_with_degree">%d°C</string>
+    <string name="hot">Hot</string>
+    <string name="cold">Cold</string>
+    <string name="very_cold">Very cold</string>
+    <string name="freezing">Freezing</string>
     <string name="morning">Morning</string>
     <string name="afternoon">Afternoon</string>
     <string name="evening">Evening</string>

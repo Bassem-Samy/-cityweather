@@ -25,7 +25,12 @@ import com.accu.cityweather.forecast.repository.Condition
 import com.accu.cityweather.forecast.repository.DayDescription
 import com.accu.cityweather.forecast.repository.DayForecast
 import com.accu.cityweather.forecast.repository.DayTemperature
+import com.accu.cityweather.forecast.repository.GeneralTemperature.COLD
+import com.accu.cityweather.forecast.repository.GeneralTemperature.FREEZING
+import com.accu.cityweather.forecast.repository.GeneralTemperature.HOT
+import com.accu.cityweather.forecast.repository.GeneralTemperature.VERY_COLD
 import com.accu.cityweather.forecast.repository.Wind
+import com.accu.cityweather.forecast.repository.generalTemperature
 
 @Composable
 fun DayDetailForecast(dayForecast: DayForecast) {
@@ -89,13 +94,26 @@ fun DetailHeader(modifier: Modifier, dayForecast: DayForecast) {
                         )
                     }
                 }
-                Text(
-                    text = stringResource(
-                        id = string.day_detail_min_max_temp,
-                        maxTemperature,
-                        minTemperature
+                Row {
+                    Text(
+                        text = stringResource(
+                            id = string.day_detail_min_max_temp,
+                            maxTemperature,
+                            minTemperature
+                        )
                     )
-                )
+                    Text(
+                        modifier = Modifier.padding(start = 4.dp),
+                        text = stringResource(
+                            id = when (generalTemperature()) {
+                                HOT -> string.hot
+                                COLD -> string.cold
+                                VERY_COLD -> string.very_cold
+                                FREEZING -> string.freezing
+                            }
+                        )
+                    )
+                }
             }
         }
     }
