@@ -1,7 +1,9 @@
 package com.accu.cityweather
 
 import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel
+import com.accu.cityweather.forecast.daily.usecase.CityStorage
 import com.accu.cityweather.forecast.daily.usecase.GetDailyForecastUseCase
+import com.accu.cityweather.forecast.daily.usecase.SharedPreferencesCityStorage
 import com.accu.cityweather.forecast.repository.DayDateFormatter
 import com.accu.cityweather.forecast.repository.DayDateFormatterImpl
 import com.accu.cityweather.forecast.repository.DegreeToCardinalConverter
@@ -37,7 +39,9 @@ val mainModule = module {
             iconUrlResolver = get()
         )
     }
-
+    single<CityStorage> {
+        SharedPreferencesCityStorage(application = get())
+    }
     factory {
         CityFromLocationUseCase(cityFromLocationProvider = get())
     }
@@ -45,7 +49,8 @@ val mainModule = module {
     factory {
         GetDailyForecastUseCase(
             cityFromLocationUseCase = get(),
-            forecastRepository = get()
+            forecastRepository = get(),
+            cityStorage = get()
         )
     }
 
