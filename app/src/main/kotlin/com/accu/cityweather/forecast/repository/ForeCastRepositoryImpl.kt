@@ -11,6 +11,28 @@ class ForeCastRepositoryImpl(
     private val dayDateFormatter: DayDateFormatter,
     private val iconUrlResolver: IconUrlResolver,
 ) : ForecastRepository {
+    override suspend fun getCurrentForecast(
+        city: String,
+        units: String,
+        count: Int
+    ): CurrentForecast {
+        val response = weatherApi.currentForecast(city, units, count)
+        return response.list?.firstOrNull()?.let {
+            val weather = it.weather.firstOrNull()
+            return@let CurrentForecast(
+                temperature = it.main.temp.toInt(),
+                feelsLike = it.main.feels_like.toInt(),
+                title = weather?.main ?: "-",
+                description = weather?.description ?: "-",
+                icon = iconUrlResolver.resolve(weather?.icon ?: ""),
+                condition = Condition(
+                    probability = it.pop.toPercentage(),
+                    size = it.rain?.h ?: it.snow?.h ?: 0.0
+                ),
+            )
+        } ?: CurrentForecast()
+    }
+
     override suspend fun getDaysForecast(
         city: String,
         units: String,

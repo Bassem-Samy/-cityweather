@@ -25,4 +25,7 @@
     <string name="location_unavailable_retry">Location unavailable, retry?</string>
     <string name="forecast_notification_channel_name">Current Forecast</string>
     <string name="forecast_notification_channel_description">Displays current weather forecast</string>
+    <string name="current_forecast_notification_title">%1s, %2s</string>
+    <string name="current_forecast_notification_content">%1d°C · Real feel %2d°C</string>
+    <string name="current_forecast_notification_large_content">"%1$d°C · Real feel %2$d°C \n%3$.2f mm Probability: (%4$d)\%%"</string>
 </resources>

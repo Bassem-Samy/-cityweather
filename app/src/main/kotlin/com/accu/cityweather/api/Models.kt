@@ -53,9 +53,10 @@ data class ApiCurrentForecast(
     val clouds: ApiClouds,
     val wind: ApiWind,
     val visibility: Long? = null,
-    val pop: Double?,
+    val pop: Double,
     val sys: ApiSys,
-    val rain: ApiRain? = null,
+    val rain: ApiCondition? = null,
+    val snow: ApiCondition? = null
 )
 
 @Serializable
@@ -67,8 +68,8 @@ data class ApiWeather(
 
 @Serializable
 data class ApiMainInfo(
-    val temp: Double?,
-    val feels_like: Double?,
+    val temp: Double,
+    val feels_like: Double,
     val temp_min: Double?,
     val temp_max: Double?,
     val pressure: Int?,
@@ -85,7 +86,7 @@ data class ApiClouds(val all: Int?)
 data class ApiWind(val speed: Double?, val deg: Double?, val gust: Double?)
 
 @Serializable
-data class ApiRain(@SerialName("3h") val h: Double?)
+data class ApiCondition(@SerialName("3h") val h: Double?)
 
 @Serializable
 data class ApiSys(val pod: String?)

@@ -6,7 +6,23 @@ interface ForecastRepository {
         units: String = "metric",
         daysCount: Int = 16
     ): List<DayForecast>
+
+    suspend fun getCurrentForecast(
+        city: String,
+        units: String = "metric",
+        count: Int = 1,
+    ): CurrentForecast
 }
+
+data class CurrentForecast(
+    val temperature: Int = 0,
+    val feelsLike: Int = 0,
+    val title: String = "-",
+    val description: String = "-",
+    val icon: String = "-",
+    val condition: Condition = Condition(0, 0.0),
+    val isRain: Boolean = false,
+)
 
 data class DayForecast(
     val day: String,

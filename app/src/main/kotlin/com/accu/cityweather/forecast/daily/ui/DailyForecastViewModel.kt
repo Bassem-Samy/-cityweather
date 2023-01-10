@@ -23,6 +23,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
+private const val NOTIFICATION_INTERVAL = 5 * 60 * 1000L
+
 class DailyForecastViewModel(
     private val locationProvider: LocationProvider,
     private val getDailyForecastUseCase: GetDailyForecastUseCase,
@@ -46,13 +48,14 @@ class DailyForecastViewModel(
                     handleLocation(locationResult.location)
                 }
             }
-            // TODO should cancel
-            forecastNotificationManager.schedule(context, 5 * 60 * 1000)
+            forecastNotificationManager.cancel(context)
         }
     }
 
-    fun onStop() {
-        // TODO  should stop()
+    fun onStop(context: Context) {
+        viewModelScope.launch {
+            forecastNotificationManager.schedule(context, NOTIFICATION_INTERVAL)
+        }
     }
 
     private suspend fun handleLocation(location: Location) {
