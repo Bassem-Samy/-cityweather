@@ -16,6 +16,10 @@ import com.accu.cityweather.location.CityFromLocationProvider
 import com.accu.cityweather.location.CityFromLocationUseCase
 import com.accu.cityweather.location.GeoCoderCityFromLocationProvider
 import com.accu.cityweather.location.LocationProvider
+import com.accu.cityweather.notification.ForeCastNotificationHelperImpl
+import com.accu.cityweather.notification.ForecastNotificationHelper
+import com.accu.cityweather.notification.ForecastNotificationManager
+import com.accu.cityweather.notification.WorkManagerForecastNotificationManager
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -62,10 +66,20 @@ val mainModule = module {
         IconUrlResolverImpl(BuildConfig.WEATHER_ICON_URL)
     }
 
+
+    single<ForecastNotificationHelper> {
+        ForeCastNotificationHelperImpl()
+    }
+
+    single<ForecastNotificationManager> {
+        WorkManagerForecastNotificationManager(notificationHelper = get())
+    }
+
     viewModel {
         DailyForecastViewModel(
             locationProvider = get(),
-            getDailyForecastUseCase = get()
+            getDailyForecastUseCase = get(),
+            forecastNotificationManager = get()
         )
     }
 }

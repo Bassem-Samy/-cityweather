@@ -23,4 +23,6 @@
     <string name="general_error_retry">An error has happened, retry?</string>
     <string name="no_result_retry">No Results available, retry?</string>
     <string name="location_unavailable_retry">Location unavailable, retry?</string>
+    <string name="forecast_notification_channel_name">Current Forecast</string>
+    <string name="forecast_notification_channel_description">Displays current weather forecast</string>
 </resources>

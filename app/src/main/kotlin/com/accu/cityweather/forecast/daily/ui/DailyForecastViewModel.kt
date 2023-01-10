@@ -17,6 +17,7 @@ import com.accu.cityweather.location.LocationProvider.LocationResult.FatalError
 import com.accu.cityweather.location.LocationProvider.LocationResult.LocationSettingsOff
 import com.accu.cityweather.location.LocationProvider.LocationResult.PermissionDenied
 import com.accu.cityweather.location.LocationProvider.LocationResult.Success
+import com.accu.cityweather.notification.ForecastNotificationManager
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,6 +26,7 @@ import kotlinx.coroutines.launch
 class DailyForecastViewModel(
     private val locationProvider: LocationProvider,
     private val getDailyForecastUseCase: GetDailyForecastUseCase,
+    private val forecastNotificationManager: ForecastNotificationManager,
 ) : ViewModel() {
     private val _viewState = MutableStateFlow<ViewState>(Loading)
     val viewState: Flow<ViewState> = _viewState
@@ -44,7 +46,14 @@ class DailyForecastViewModel(
                     handleLocation(locationResult.location)
                 }
             }
+            //TODO should cancel
+            forecastNotificationManager.schedule(context, 5 * 60 * 1000)
         }
+
+    }
+
+    fun onStop() {
+        //TODO  should stop()
     }
 
     private suspend fun handleLocation(location: Location) {

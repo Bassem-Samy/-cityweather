@@ -14,11 +14,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.accu.cityweather.forecast.daily.ui.DailyForecastUi
 import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel
 import com.accu.cityweather.forecast.daily.ui.DailyForecastViewModel.ViewState.Loading
+import com.accu.cityweather.forecast.daily.usecase.GetDailyForecastUseCase
 import com.accu.cityweather.ui.theme.CityWeatherTheme
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
     private val viewModel: DailyForecastViewModel by viewModel()
+    private val x: GetDailyForecastUseCase by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
