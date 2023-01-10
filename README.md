@@ -11,15 +11,17 @@
 #### Technical description:
 * The app is structured in clean architecture + MVVM.
 * Written in Kotlin, coroutines for threading and reactive code, used Jetpack compose for UI.
+* Used gradle's [version catalogs](https://docs.gradle.org/current/userguide/platforms.html) to organize dependencies.
 * The following libraries are used:
-    * [Koin](https://insert-koin.io/) for DI
-    * [Locus android](https://github.com/BirjuVachhani/locus-android) For location permission and fetching current location.
-    * Retrofit2 with kotlinx serialization for networking.
-    * [Mockk](https://mockk.io/) and google [Truth](https://github.com/google/truth) for testing.
-    * [Turbin](https://github.com/cashapp/turbine) for flows testing.
+  * Used [Ktlint Gradle plugin](https://github.com/JLLeitschuh/ktlint-gradle) for linting and formatting.
+  * [Koin](https://insert-koin.io/) for DI
+  * [Locus android](https://github.com/BirjuVachhani/locus-android) For location permission and fetching current location.
+  * Retrofit2 with kotlinx serialization for networking.
+  * [Mockk](https://mockk.io/) and google [Truth](https://github.com/google/truth) for testing.
+  * [Turbin](https://github.com/cashapp/turbine) for flows testing.
 * There are 2 tests for demonstration:
-    * `DailyForecastViewModelTest` Junit test.
-    * `DayListItemUiTest` Android test.
+  * `DailyForecastViewModelTest` Junit test.
+  * `DayListItemUiTest` Android test.
 
 
 
